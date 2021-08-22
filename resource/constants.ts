@@ -1,0 +1,14 @@
+export const ICBON_TYPE_NULL: number = 0x00;
+export const ICBON_TYPE_BOOLEAN: number = 0x01;
+export const ICBON_TYPE_INT8: number = 0x02;
+export const ICBON_TYPE_UINT8: number = 0x03;
+export const ICBON_TYPE_INT16: number = 0x04;
+export const ICBON_TYPE_UINT16: number = 0x05;
+export const ICBON_TYPE_INT32: number = 0x06;
+export const ICBON_TYPE_UINT32: number = 0x07;
+export const ICBON_TYPE_FLOAT32: number = 0x08;
+export const ICBON_TYPE_FLOAT64: number = 0x09;
+export const ICBON_TYPE_ASCII: number = 0x0A;
+export const ICBON_TYPE_UNICODE: number = 0x0B;
+export const ICBON_TYPE_ARRAY: number = 0x0C;
+export const ICBON_TYPE_HASH: number = 0x0D;
