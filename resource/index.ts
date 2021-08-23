@@ -1,3 +1,4 @@
 export { pack } from './pack';
 export { unpack } from './unpack';
-export { ParseError } from './ParseError';
+export { PackError } from './PackError';
+export { UnpackError } from './UnpackError';

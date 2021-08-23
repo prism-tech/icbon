@@ -14,6 +14,8 @@ import {
   ICBON_TYPE_UINT8,
   ICBON_TYPE_UNICODE,
 } from './constants';
+import { uint8tohex } from './uint8tohex';
+import { UnpackError } from './UnpackError';
 
 interface ReadDescriptor {
   data: Uint8Array;
@@ -47,7 +49,7 @@ function readNumber(descriptor: ReadDescriptor): number {
       descriptor.offset += 9;
       return new Float32Array(descriptor.data.buffer.slice(descriptor.offset - 8, descriptor.offset))[0];
     default:
-      throw new SyntaxError();
+      throw new UnpackError(`Invalid number type \x1b[1m${ uint8tohex(descriptor.data[descriptor.offset]) }\x1b[0m`);
   }
 }
 
@@ -80,7 +82,7 @@ function readString(descriptor: ReadDescriptor): string {
       ).join('');
     }
     default:
-      throw new SyntaxError();
+      throw new UnpackError(`Invalid string type \x1b[1m${ uint8tohex(descriptor.data[descriptor.offset]) }\x1b[0m`);
   }
 }
 
@@ -97,7 +99,7 @@ function readArray(descriptor: ReadDescriptor): unknown[] {
     return array;
   }
 
-  throw new SyntaxError();
+  throw new UnpackError(`Invalid array type \x1b[1m${ uint8tohex(descriptor.data[descriptor.offset]) }\x1b[0m`);
 }
 
 function readHash(descriptor: ReadDescriptor): Record<string, unknown> {
@@ -114,7 +116,7 @@ function readHash(descriptor: ReadDescriptor): Record<string, unknown> {
     return hash;
   }
 
-  throw new SyntaxError();
+  throw new UnpackError(`Invalid object type \x1b[1m${ uint8tohex(descriptor.data[descriptor.offset]) }\x1b[0m`);
 }
 
 function readAny(descriptor: ReadDescriptor): unknown {
@@ -142,7 +144,7 @@ function readAny(descriptor: ReadDescriptor): unknown {
     case ICBON_TYPE_HASH:
       return readHash(descriptor);
     default:
-      throw new SyntaxError();
+      throw new UnpackError(`Invalid data type \x1b[1m${ uint8tohex(descriptor.data[descriptor.offset]) }\x1b[0m`);
   }
 }
 

@@ -4,6 +4,7 @@ import { Number } from './Number';
 import { String } from './String';
 import { Array } from './Array';
 import { Hash } from './Hash';
+import { PackError } from './PackError';
 
 export function pack(data: unknown): ArrayBuffer {
   if (data === null) {
@@ -30,7 +31,7 @@ export function pack(data: unknown): ArrayBuffer {
     return Hash(data as Record<string, unknown>);
   }
 
-  throw new TypeError();
+  throw new PackError(`Invalid data type \x1b[1m${ typeof data }\x1b[0m`);
 }
 
 export default pack;

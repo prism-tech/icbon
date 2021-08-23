@@ -9,6 +9,7 @@ import {
   ICBON_TYPE_INT32,
   ICBON_TYPE_UINT32,
 } from './constants';
+import { PackError } from './PackError';
 
 const ICBON_UNION_NUMBER: Readonly<number[]> = [
   ICBON_TYPE_UINT8,
@@ -37,7 +38,7 @@ const ICBON_UNION_BUFFER_CONSTRUCTOR: Record<number, NumberBufferConstructor> = 
 
 export function Number(data: number): ArrayBuffer {
   if (!isFinite(data)) {
-    throw new TypeError();
+    throw new PackError(`Invalid number type \x1b[1m${ data }\x1b[0m`);
   }
 
   for (let i: number = 0; i < ICBON_UNION_NUMBER.length; i++) {
@@ -50,7 +51,7 @@ export function Number(data: number): ArrayBuffer {
     }
   }
 
-  throw new TypeError();
+  throw new PackError(`Failed attempt to pack number \x1b[1m${ data }\x1b[0m`);
 }
 
 export default Number;
