@@ -1,6 +1,6 @@
 {
   "name": "icbon",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Internet Compressed Binary Object Notation",
   "author": "Prismatic Technologies <administrator@prism.md>",
   "license": "GPL",
@@ -20,7 +20,12 @@
   },
   "devDependencies": {
     "ts-loader": "^9.2.5",
+    "typescript": "^4.3.5",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "@types/pako": "^1.0.2",
+    "pako": "^2.0.4"
   }
 }

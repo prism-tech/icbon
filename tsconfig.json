@@ -1,13 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "esModuleInterop": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "strict": true,
     "target": "es5"
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

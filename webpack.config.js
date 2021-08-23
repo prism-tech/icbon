@@ -6,6 +6,7 @@ module.exports = {
 
   entry: path.join(__dirname, 'resource/index.ts'),
   output: {
+    library: { type: 'commonjs' },
     path: path.join(__dirname, 'build'),
     filename: 'icbon.min.js',
   },
@@ -19,8 +20,8 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader'
-      }
-    ]
-  }
+        loader: 'ts-loader',
+      },
+    ],
+  },
 };

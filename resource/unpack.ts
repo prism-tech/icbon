@@ -47,7 +47,7 @@ function readNumber(descriptor: ReadDescriptor): number {
       return new Float32Array(descriptor.data.buffer.slice(descriptor.offset - 4, descriptor.offset))[0];
     case ICBON_TYPE_FLOAT64:
       descriptor.offset += 9;
-      return new Float32Array(descriptor.data.buffer.slice(descriptor.offset - 8, descriptor.offset))[0];
+      return new Float64Array(descriptor.data.buffer.slice(descriptor.offset - 8, descriptor.offset))[0];
     default:
       throw new UnpackError(`Invalid number type \x1b[1m${ uint8tohex(descriptor.data[descriptor.offset]) }\x1b[0m`);
   }
