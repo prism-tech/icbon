@@ -1,16 +1,22 @@
-export function concat(data: ArrayBuffer[]): ArrayBuffer {
-  const length: number = data.reduce((length: number, buffer: ArrayBuffer): number => {
-    return length + buffer.byteLength;
-  }, 0);
+export function concat(data: Uint8Array[]): Uint8Array {
+  let offset: number = 0;
+  let length: number = 0;
+
+  for (let i: number = 0; i < data.length; i++) {
+    length += data[i].length;
+  }
 
   const response: Uint8Array = new Uint8Array(length);
 
-  data.reduce((offset: number, buffer: ArrayBuffer): number => {
-    response.set(new Uint8Array(buffer), offset);
-    return offset + buffer.byteLength;
-  }, 0);
+  for (let i: number = 0; i < data.length; i++) {
+    const buffer: Uint8Array = new Uint8Array(data[i]);
 
-  return response.buffer;
+    for (let j: number = 0; j < buffer.byteLength; j++, offset++) {
+      response[offset] = buffer[j];
+    }
+  }
+
+  return response;
 }
 
 export default concat;
