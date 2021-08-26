@@ -1,8 +1,8 @@
 import { deflateRaw } from 'pako';
-import { Encoder } from './Encoder';
+import { serialize } from './serialize';
 
-export function compress(data: unknown): ArrayBuffer {
-  return deflateRaw(new Encoder().any(data)).buffer;
+export function compress(data: unknown): Uint8Array {
+  return deflateRaw(serialize(data));
 }
 
 export default compress;

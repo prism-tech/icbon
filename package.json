@@ -1,12 +1,12 @@
 {
   "name": "icbon",
-  "version": "1.0.2-alpha",
-  "description": "Internet Compressed Binary Object Notation",
+  "version": "1.0.3-alpha",
+  "description": "icbon: Internet Compressed Binary Object Notation",
   "author": "Prismatic Technologies <administrator@prism.md>",
   "license": "GPL",
   "main": "build/icbon.min.js",
   "types": "resource/index.ts",
-  "keywords": [],
+  "keywords": ["icbon", "icbp", "compression", "encoding", "serialization", "binary", "object", "notation"],
   "homepage": "https://github.com/prism-tech/icbon#readme",
   "repository": {
     "type": "git",

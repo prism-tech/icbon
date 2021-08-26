@@ -1,8 +1,8 @@
 import { inflateRaw } from 'pako';
-import { Decoder } from './Decoder';
+import { deserialize } from './deserialize';
 
-export function decompress(data: ArrayBuffer): unknown {
-  return new Decoder(inflateRaw(new Uint8Array(data))).any();
+export function decompress(data: Uint8Array, offset: number = 0): unknown {
+  return deserialize(inflateRaw(data), offset);
 }
 
 export default decompress;

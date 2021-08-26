@@ -22,13 +22,8 @@ export class Decoder {
   private readonly data: Uint8Array;
   private offset: number;
 
-  public constructor(data: ArrayBuffer | Uint8Array, offset: number = 0) {
-    if (data instanceof ArrayBuffer) {
-      this.data = new Uint8Array(data);
-    } else {
-      this.data = data;
-    }
-
+  public constructor(data: Uint8Array, offset: number = 0) {
+    this.data = data;
     this.offset = offset;
   }
 
