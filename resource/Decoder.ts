@@ -20,11 +20,23 @@ import { DecodeError } from './DecodeError';
 export class Decoder {
 
   private readonly data: Uint8Array;
-  private offset: number;
+  private _offset: number;
 
   public constructor(data: Uint8Array, offset: number = 0) {
     this.data = data;
-    this.offset = offset;
+    this._offset = offset;
+  }
+
+  public set offset(offset: number) {
+    if (Number.isInteger(offset) && offset >= 0 && offset < this.data.length) {
+      this._offset = offset;
+    }
+
+    throw new RangeError('Offset is outside the bounds of the Decoder');
+  }
+
+  public get offset(): number {
+    return this._offset;
   }
 
   public readonly any: Decoder.AnyDecoder = (): unknown => {
