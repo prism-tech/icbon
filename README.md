@@ -21,27 +21,17 @@ ___
 
 #### _Documentation:_
 ```typescript
-function compress(data: unknown): Uint8Array;
-```
-Serializes JSON RFC8259 compatible _`data`_ and compresses resulting buffer using deflate algorithm.
-
-```typescript
 function concat(data: Uint8Array[]): Uint8Array;
 ```
 Sequentially concatenates each buffer in _`data`_ array into resulting buffer.
 
 ```typescript
-function decompress(data: Uint8Array, offset: number = 0): unknown;
-```
-Decompresses _`data`_ buffer using inflate algorithm and deserializes resulting buffer to JSON RFC8259 compatible value starting from the specified _`offset`_.
-
-```typescript
-function deserialize(data: Uint8Array, offset: number = 0): unknown;
+function decode(data: Uint8Array, offset: number = 0): unknown;
 ```
 Deserializes _`data`_ buffer to JSON RFC8259 compatible value starting from the specified _`offset`_.
 
 ```typescript
-function serialize(data: unknown): Uint8Array;
+function encode(data: unknown): Uint8Array;
 ```
 Serializes JSON RFC8259 compatible _`data`_ to resulting buffer.
 
@@ -89,35 +79,33 @@ ___
 
 #### _Usage examples:_
 ```typescript
-import { compress, serialize } from 'icbon';
+import { encode } from 'icbon';
 
 const response: Response = await fetch('https://random-data-api.com/api/users/random_user');
 const text: string = await response.text();
 const object: unknown = await response.json();
-const serializedBuffer: Uint8Array = serialize(object);
-const compressedBuffer: Uint8Array = compress(object);
+const buffer: Uint8Array = encode(object);
 
 console.log(`text json: ${ text.length * 2 } bytes`);
-console.log(`serialized icbon: ${ serializedBuffer.length } bytes`);
-console.log(`compressed icbon: ${ compressedBuffer.length } bytes`);
+console.log(`serialized icbon: ${ buffer.length } bytes`);
 ```
 
 ```typescript
 // client
-import { compress } from 'icbon';
+import { encode } from 'icbon';
 
 const response: Response = await fetch('https://random-data-api.com/api/users/random_user');
 const data: unknown = await response.json();
 
 fetch(`http://example.com/endpoint`, {
   method: 'POST',
-  headers: { 'Content-Type': 'application/x-icbon-compressed' },
-  body: compress(data),
+  headers: { 'Content-Type': 'application/x-icbon-encoded' },
+  body: encode(data),
 });
 
 // server
 import { IncomingMessage, Server, ServerResponse } from 'http';
-import { decompress } from 'icbon';
+import { decode } from 'icbon';
 
 const server: Server = new Server();
 
@@ -130,12 +118,12 @@ server.on('request', (request: IncomingMessage, response: ServerResponse): void 
 
   request.on('end', (): void => {
     const buffer: Buffer = Buffer.concat(chunks);
-    const decompressedIcbon: Uint8Array = decompress(buffer);
+    const decoded: unknown = decode(buffer);
 
-    console.log(decompressedIcbon);
+    console.log(decoded);
 
     response.writeHead(200, { 'Content-Type': 'application/json' });
-    response.end(JSON.stringify(decompressedIcbon));
+    response.end(JSON.stringify(decoded));
   });
 });
 

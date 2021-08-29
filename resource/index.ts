@@ -1,8 +1,6 @@
-export { compress } from './compress';
 export { concat } from './concat';
-export { decompress } from './decompress';
-export { deserialize } from './deserialize';
-export { serialize } from './serialize';
+export { decode } from './decode';
+export { encode } from './encode';
 export { Decoder } from './Decoder';
 export { Encoder } from './Encoder';
 export { DecodeError } from './DecodeError';
